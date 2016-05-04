@@ -12,7 +12,7 @@ class Api::V1::BucketlistsControllerTest < ActionController::TestCase
   end
 
   test "should get create" do
-    get :create
+    post :create
     assert_response :success
   end
 

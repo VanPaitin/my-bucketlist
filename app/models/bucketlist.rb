@@ -1,4 +1,5 @@
 class Bucketlist < ActiveRecord::Base
+  include TimeStamps
   belongs_to :user
-  has_many :items
+  has_many :items, dependent: :destroy
 end
