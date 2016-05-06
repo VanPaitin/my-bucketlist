@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 gem 'rails', '4.2.6'
 
 gem 'rails-api'
@@ -11,9 +10,7 @@ gem 'active_model_serializers'
 gem 'sqlite3'
 
 
-
 # To use ActiveModel has_secure_password
-gem 'bcrypt', '~> 3.1.7'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
@@ -27,6 +24,8 @@ gem 'bcrypt', '~> 3.1.7'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 group :development, :test do
+  gem "rubocop"
+  gem 'bcrypt', '~> 3.1.7'
   gem "pry-rails"
   gem "pry-nav"
   gem "factory_girl_rails"

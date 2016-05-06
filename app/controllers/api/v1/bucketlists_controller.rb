@@ -33,5 +33,4 @@ class Api::V1::BucketlistsController < ApplicationController
     Bucketlist.delete_all(id: params[:id])
     redirect_to :index
   end
-
 end

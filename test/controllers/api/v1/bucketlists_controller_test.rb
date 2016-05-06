@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Api::V1::BucketlistsControllerTest < ActionController::TestCase
   # test "should get index" do
@@ -25,5 +25,4 @@ class Api::V1::BucketlistsControllerTest < ActionController::TestCase
   #   get :destroy
   #   assert_response :success
   # end
-
 end

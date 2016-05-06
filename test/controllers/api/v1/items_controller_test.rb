@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Api::V1::ItemsControllerTest < ActionController::TestCase
   test "should get create" do
@@ -15,5 +15,4 @@ class Api::V1::ItemsControllerTest < ActionController::TestCase
     get :destroy
     assert_response :success
   end
-
 end

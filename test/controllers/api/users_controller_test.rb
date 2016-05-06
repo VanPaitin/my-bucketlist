@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Api::UsersControllerTest < ActionController::TestCase
   # test "should get show" do
@@ -20,5 +20,4 @@ class Api::UsersControllerTest < ActionController::TestCase
   #   get :destroy
   #   assert_response :success
   # end
-
 end
