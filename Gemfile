@@ -26,3 +26,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+group :development, :test do
+  gem "pry-rails"
+  gem "pry-nav"
+  gem "factory_girl_rails"
+end

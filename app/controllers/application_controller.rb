@@ -5,4 +5,10 @@ class ApplicationController < ActionController::API
     response.headers['Access-Control-Allow-Origin'] = request.headers['Origin'] || '*'
     response.headers['Access-Control-Allow-Credentials'] = 'true'
   end
+
+  def ensure_login
+    unless logged_in?
+      render json: "Unauthorized Access", status: 403
+    end
+  end
 end

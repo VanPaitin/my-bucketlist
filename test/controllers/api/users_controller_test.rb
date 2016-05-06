@@ -1,18 +1,13 @@
 require 'test_helper'
 
-class Api::V1::BucketlistsControllerTest < ActionController::TestCase
-  # test "should get index" do
-  #   get :index
-  #   assert_response :success
-  # end
-
+class Api::UsersControllerTest < ActionController::TestCase
   # test "should get show" do
   #   get :show
   #   assert_response :success
   # end
 
   # test "should get create" do
-  #   post :create
+  #   get :create
   #   assert_response :success
   # end
 
