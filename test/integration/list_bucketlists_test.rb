@@ -5,7 +5,7 @@ class ListBucketlistsTest < ActionDispatch::IntegrationTest
   test "returns the lists of all the bucket lists" do
     bucket1 = create(:bucketlist)
     bucket2 = create(:bucketlist, name: "Second bucket")
-    get "/api/vi/bucketlists"
+    get "/api/v1/bucketlists"
     assert_equal 200, response.status
     refute_empty response.body
     bucketlists = json(response.body)

@@ -1,7 +1,10 @@
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path("../../config/environment", __FILE__)
 require "rails/test_help"
+require 'database_cleaner'
+DatabaseCleaner.clean_with :truncation
 
+DatabaseCleaner.strategy = :transaction
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml
   # for all tests in alphabetical order.
@@ -12,3 +15,14 @@ class ActiveSupport::TestCase
     JSON.parse(body, symbolize_names: true)
   end
 end
+class Minitest::Spec
+  before :each do
+    DatabaseCleaner.start
+  end
+
+  after :each do
+    DatabaseCleaner.clean
+  end
+end
+
+
