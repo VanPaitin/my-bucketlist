@@ -14,7 +14,7 @@ class CreateBucketlistTest < ActionDispatch::IntegrationTest
       to_json, "Content-Type" => "application/json"
     assert_equal 422, response.status
     assert_equal Mime::JSON, response.content_type
-    assert_includes JSON.parse(response.body, symbolize_names: true)[
+    assert_includes json(response.body)[
       :errors][:name], "is too short (minimum is 2 characters)"
   end
 end

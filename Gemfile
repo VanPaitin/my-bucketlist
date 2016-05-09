@@ -8,8 +8,9 @@ gem 'spring', :group => :development
 gem 'active_model_serializers'
 
 gem 'sqlite3'
+gem 'bcrypt', '~> 3.1.7'
 
-
+gem "jwt"
 # To use ActiveModel has_secure_password
 
 # To use Jbuilder templates for JSON
@@ -25,8 +26,11 @@ gem 'sqlite3'
 # gem 'ruby-debug19', :require => 'ruby-debug'
 group :development, :test do
   gem "rubocop"
-  gem 'bcrypt', '~> 3.1.7'
   gem "pry-rails"
   gem "pry-nav"
   gem "factory_girl_rails"
+end
+group :test do
+  gem 'database_cleaner'
+  gem "minitest-around"
 end

@@ -1,7 +1,8 @@
 class Api::UsersController < ApplicationController
+  before_action :find_user, only: [:show, :update]
   def show
-    user = user.find_by_id(params[:id])
-    render json: user
+    render json: @user unless @user.nil?
+    head 404
   end
 
   def create
@@ -14,17 +15,16 @@ class Api::UsersController < ApplicationController
   end
 
   def update
-    user = User.find_by_id(params[:id])
-    user.update(user_params)
-    if user.save
-      render json: user, status: 201, location: [:api, user]
+    head 404 unless @user
+    if @user.update(user_params)
+      render json: @user, status: 201, location: [:api, @user]
     else
-      render json: { errors: user.errors }, status: 422
+      render json: { errors: @user.errors }, status: 422
     end
   end
 
   def destroy
-    User.delete_all(id: params[:id])
+    User.delete_all(id: set_id)
     head 204
   end
 
@@ -33,5 +33,9 @@ class Api::UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :email, :password,
                                  :password_confirmation)
+  end
+
+  def find_user
+    @user = User.find_by_id(set_id)
   end
 end
