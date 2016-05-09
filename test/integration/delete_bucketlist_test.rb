@@ -1,7 +1,7 @@
-require 'test_helper'
+require "test_helper"
 
 class DeleteBucketlistTest < ActionDispatch::IntegrationTest
-  setup { @bucketlist = create(:bucketlist)}
+  setup { @bucketlist = create(:bucketlist) }
   test "can delete a bucketlist" do
     assert_equal 1, Bucketlist.count
     assert_difference "Bucketlist.count", -1 do

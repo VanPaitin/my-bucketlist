@@ -7,14 +7,18 @@ class Api::V1::SessionsController < ApplicationController
       render json: { auth_token: token }, status: 200
     else
       render json: { error: "invalid email/password combination" },
-        status: 422
+             status: 422
     end
   end
 
   def destroy
-    !!@user ? @user.update_attribute(:logged_in, false) : head 404
+    if @user
+      @user.update_attribute(:logged_in, false)
+    else
+      head 404
+    end
     @current_user = nil
-    render :json "You are logged out now", status: 200
+    render json: "You are logged out now", status: 200
   end
 
   private

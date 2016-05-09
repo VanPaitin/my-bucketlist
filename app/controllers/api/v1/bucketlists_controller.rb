@@ -15,7 +15,7 @@ class Api::V1::BucketlistsController < ApplicationController
     # bucket_list.user_id = current_user.id
     if bucket_list.save
       render json: bucket_list, status: 201, location: [:api, :v1, bucket_list],
-        root: false
+             root: false
     else
       render json: { errors: bucket_list.errors }, status: 422
     end

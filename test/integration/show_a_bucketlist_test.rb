@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class ShowABucketlistTest < ActionDispatch::IntegrationTest
   test "can show a bucketlist" do
