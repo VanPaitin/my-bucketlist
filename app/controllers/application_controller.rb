@@ -7,13 +7,24 @@ class ApplicationController < ActionController::API
     response.headers["Access-Control-Allow-Credentials"] = "true"
   end
 
-  def log_in(user)
-    session[:user_id] = user.id
+  def set_id
+    params[:user][:id]
+  end
+
+  def get_token
+    if request.headers["Authorization"].present?
+      request.headers["Authorization"].split(" ").last
+    end
+  end
+
+  def payload_token
+    JWT.decode(get_token)
   end
 
   def current_user
-    @current_user ||= User.find_by(id: session[:user_id])
+    @current_user ||= User.find_by(id: payload_token[:user_id], logged_in: true)
   end
+
   def logged_in?
     !current_user.nil?
   end

@@ -1,5 +1,5 @@
 class Api::V1::BucketlistsController < ApplicationController
-  # before_action :ensure_login
+  before_action :ensure_login
   def index
     bucket_lists = current_user.bucketlists
     render json: bucket_lists

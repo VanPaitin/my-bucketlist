@@ -1,14 +1,25 @@
 class Api::V1::SessionsController < ApplicationController
+  before_action :set_user
   def create
-    user = User.find_by(email: params[:email])
-    if user && !!user.authenticate(params[:password])
-      token = JsonWebToken.encode {user_id: user.id}
-      render json: token, status: 200
+    if @user && !!@user.authenticate(params[:user][:password])
+      @user.update_attribute(:logged_in, true)
+      token = JsonWebToken.encode user_id: user.id
+      render json: { auth_token: token }, status: 200
     else
-      render json: { error: "invalid email/password combination" }, status: 422
+      render json: { error: "invalid email/password combination" },
+        status: 422
     end
   end
 
   def destroy
+    !!@user ? @user.update_attribute(:logged_in, false) : head 404
+    @current_user = nil
+    render :json "You are logged out now", status: 200
+  end
+
+  private
+
+  def set_user
+    @user = User.find_by(email: params[:user][:email].downcase)
   end
 end
