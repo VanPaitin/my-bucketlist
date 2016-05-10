@@ -49,9 +49,9 @@ class Api::V1::BucketlistsController < ApplicationController
 
   def search(query)
     results = current_user.bucketlists.select do |bucketlist|
-                bucketlist.name.downcase.include? query.downcase
-              end
-    if results.length > 0
+      bucketlist.name.downcase.include? query.downcase
+    end
+    if !results.empty?
       render json: results, status: 200
     else
       head 404
