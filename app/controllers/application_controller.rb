@@ -1,6 +1,13 @@
 class ApplicationController < ActionController::API
   before_filter :add_allow_credentials_headers
   include ActionController::Serialization
+
+  private
+
+  def serialization_scope
+    false
+  end
+
   def add_allow_credentials_headers
     response.headers["Access-Control-Allow-Origin"] = request.
                                                       headers["Origin"] || "*"
@@ -8,7 +15,13 @@ class ApplicationController < ActionController::API
   end
 
   def set_id
-    params[:user][:id]
+    binding.pry
+    head 403 unless params_integrity
+    current_user.id
+  end
+
+  def params_integrity
+    current_user.id == params[:id].to_i
   end
 
   def get_token
@@ -18,11 +31,14 @@ class ApplicationController < ActionController::API
   end
 
   def payload_token
-    JWT.decode(get_token)
+    JsonWebToken.decode(get_token)
   end
 
   def current_user
-    @current_user ||= User.find_by(id: payload_token[:user_id], logged_in: true)
+    @current_user ||= User.find_by(id: payload_token[:user_id], logged_in: true
+      )
+  rescue
+    nil
   end
 
   def logged_in?
@@ -31,7 +47,7 @@ class ApplicationController < ActionController::API
 
   def ensure_login
     unless logged_in?
-      render json: "Unauthorized Access", status: 403
+      head 403
     end
   end
 end

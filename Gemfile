@@ -33,4 +33,6 @@ end
 group :test do
   gem 'database_cleaner'
   gem "minitest-around"
+  gem "minitest-stub_any_instance"
+  gem "faker"
 end

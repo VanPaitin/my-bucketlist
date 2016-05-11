@@ -14,6 +14,10 @@ class ActiveSupport::TestCase
   def json(body)
     JSON.parse(body, symbolize_names: true)
   end
+
+  def user
+    build(:user)
+  end
 end
 class Minitest::Spec
   before :each do

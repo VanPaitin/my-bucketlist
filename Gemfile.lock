@@ -51,6 +51,8 @@ GEM
     factory_girl_rails (4.7.0)
       factory_girl (~> 4.7.0)
       railties (>= 3.0.0)
+    faker (1.6.3)
+      i18n (~> 0.5)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     i18n (0.7.0)
@@ -68,6 +70,7 @@ GEM
     minitest (5.8.4)
     minitest-around (0.3.2)
       minitest (~> 5.0)
+    minitest-stub_any_instance (1.0.1)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     parser (2.3.0.7)
@@ -144,8 +147,10 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   database_cleaner
   factory_girl_rails
+  faker
   jwt
   minitest-around
+  minitest-stub_any_instance
   pry-nav
   pry-rails
   rails (= 4.2.6)
