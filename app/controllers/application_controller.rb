@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   before_filter :add_allow_credentials_headers
+  before_action :ensure_login
   include ActionController::Serialization
   rescue_from ExpirationError, with: :expired_token
   rescue_from NotAuthenticatedError, with: :not_authenticated
@@ -16,11 +17,18 @@ class ApplicationController < ActionController::API
     response.headers["Access-Control-Allow-Credentials"] = "true"
   end
 
-  def query_conditions
-    {
-      id: params[:id],
-      user_id: current_user.id
-    }
+  def query_conditions(controller = params[:controller])
+    id = if controller == "api/v1/items"
+           params[:bucketlist_id]
+         elsif controller == "api/v1/bucketlists"
+           params[:id]
+         end
+    { id: id, user_id: current_user.id }
+  end
+
+  def set_bucketlist
+    @bucketlist = Bucketlist.find_by(query_conditions)
+    head 404 unless @bucketlist
   end
 
   def set_id

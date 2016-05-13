@@ -1,5 +1,5 @@
 class Api::UsersController < ApplicationController
-  before_action :ensure_login, except: :create
+  skip_before_action :ensure_login, only: :create
   before_action :find_user, except: :create
   def show
     render json: @user, root: false
