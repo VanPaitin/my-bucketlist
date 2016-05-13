@@ -1,7 +1,8 @@
 class Api::V1::SessionsController < ApplicationController
+  before_action :ensure_login, only: :destroy
   before_action :set_user
   def create
-    if @user && !!@user.authenticate(params[:user][:password])
+    if @user && !!@user.authenticate(params[:password])
       @user.update_attribute(:logged_in, true)
       token = JsonWebToken.encode user_id: @user.id
       render json: { auth_token: token }, status: 200
@@ -24,6 +25,6 @@ class Api::V1::SessionsController < ApplicationController
   private
 
   def set_user
-    @user = User.find_by(email: params[:user][:email].downcase)
+    @user = User.find_by(email: params[:email].downcase)
   end
 end

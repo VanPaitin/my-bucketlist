@@ -1,6 +1,6 @@
 class Api::UsersController < ApplicationController
   before_action :ensure_login, except: :create
-  before_action :find_user, only: [:show, :update]
+  before_action :find_user, except: :create
   def show
     render json: @user, root: false
   end
@@ -23,7 +23,7 @@ class Api::UsersController < ApplicationController
   end
 
   def destroy
-    User.delete_all(id: set_id)
+    User.delete_all(id: @user.id)
     head 204
   end
 

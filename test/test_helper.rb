@@ -2,6 +2,8 @@ ENV["RAILS_ENV"] ||= "test"
 require File.expand_path("../../config/environment", __FILE__)
 require "rails/test_help"
 require 'database_cleaner'
+require "minitest/reporters"
+Minitest::Reporters.use!
 DatabaseCleaner.clean_with :truncation
 
 DatabaseCleaner.strategy = :transaction

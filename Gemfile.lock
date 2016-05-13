@@ -38,6 +38,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    ansi (1.5.0)
     arel (6.0.3)
     ast (2.2.0)
     bcrypt (3.1.11)
@@ -70,6 +71,11 @@ GEM
     minitest (5.8.4)
     minitest-around (0.3.2)
       minitest (~> 5.0)
+    minitest-reporters (1.0.5)
+      ansi
+      builder
+      minitest (>= 5.0)
+      ruby-progressbar
     minitest-stub_any_instance (1.0.1)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
@@ -150,6 +156,7 @@ DEPENDENCIES
   faker
   jwt
   minitest-around
+  minitest-reporters
   minitest-stub_any_instance
   pry-nav
   pry-rails

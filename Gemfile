@@ -35,4 +35,5 @@ group :test do
   gem "minitest-around"
   gem "minitest-stub_any_instance"
   gem "faker"
+  gem "minitest-reporters"
 end

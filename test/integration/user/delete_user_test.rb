@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class User::DeleteUserTest < ActionDispatch::IntegrationTest
   setup do
@@ -19,7 +19,6 @@ class User::DeleteUserTest < ActionDispatch::IntegrationTest
       ApplicationController.stub_any_instance(:current_user, @user2) do
         delete "/api/users/#{@user.id}"
       end
-      binding.pry
     end
     assert_response 403
   end
