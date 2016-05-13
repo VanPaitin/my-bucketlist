@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :bucketlist do
-    name "Test bucketlist"
+    name { Faker::Commerce.department }
   end
 end
