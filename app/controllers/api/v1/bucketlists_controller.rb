@@ -1,6 +1,6 @@
 class Api::V1::BucketlistsController < ApplicationController
-  before_action :ensure_login
   before_action :set_bucketlist, except: [:index, :create]
+  include Rendering
   def index
     q = params[:q]
     bucketlists = get_bucketlists(q)
@@ -17,19 +17,19 @@ class Api::V1::BucketlistsController < ApplicationController
   end
 
   def create
-    @bucketlist = current_user.bucketlists.new(bucketlist_params)
-    if @bucketlist.save
-      successful_rendering(201)
+    bucketlist = current_user.bucketlists.new(bucketlist_params)
+    if bucketlist.save
+      successful_rendering(bucketlist, 201)
     else
-      error_rendering
+      error_rendering(bucketlist)
     end
   end
 
   def update
     if @bucketlist.update(bucketlist_params)
-      successful_rendering(200)
+      successful_rendering(@bucketlist, 200)
     else
-      error_rendering
+      error_rendering(@bucketlist)
     end
   end
 
@@ -42,20 +42,6 @@ class Api::V1::BucketlistsController < ApplicationController
 
   def bucketlist_params
     params.require(:bucketlist).permit(:name)
-  end
-
-  def successful_rendering(status)
-    render json: @bucketlist, status: status,
-           location: [:api, :v1, @bucketlist], root: false
-  end
-
-  def error_rendering
-    render json: { errors: @bucketlist.errors }, status: 422
-  end
-
-  def set_bucketlist
-    @bucketlist = Bucketlist.find_by(query_conditions)
-    head 404 unless @bucketlist
   end
 
   def get_bucketlists(q)

@@ -1,6 +1,6 @@
 class Api::V1::SessionsController < ApplicationController
-  before_action :ensure_login, only: :destroy
-  before_action :set_user
+  skip_before_action :ensure_login, only: :create
+  before_action :set_user, only: :create
   def create
     if @user && !!@user.authenticate(params[:password])
       @user.update_attribute(:logged_in, true)
@@ -13,11 +13,7 @@ class Api::V1::SessionsController < ApplicationController
   end
 
   def destroy
-    if @user
-      @user.update_attribute(:logged_in, false)
-    else
-      head 404
-    end
+    current_user.update_attribute(:logged_in, false)
     @current_user = nil
     render json: { msg: "You are logged out now" }, status: 200
   end
