@@ -3,7 +3,9 @@ require File.expand_path("../../config/environment", __FILE__)
 require "rails/test_help"
 require 'database_cleaner'
 require "minitest/reporters"
-Minitest::Reporters.use!
+reporter_options = { color: true }
+Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(reporter_options),
+                          Minitest::Reporters::SpecReporter.new(reporter_options)]
 DatabaseCleaner.clean_with :truncation
 
 DatabaseCleaner.strategy = :transaction

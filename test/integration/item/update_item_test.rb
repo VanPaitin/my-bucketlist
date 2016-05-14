@@ -32,6 +32,8 @@ class Item::UpdateItemTest < ActionDispatch::IntegrationTest
     item_result = json(response.body)
     assert_equal true, item_result[:errors].present?
     assert_equal true, item_result[:errors][:name].present?
+    assert_equal json(response.body)[:errors][:name],
+                 ["is too short (minimum is 20 characters)"]
     refute_equal true, item_result[:errors][:done].present?
   end
 end
