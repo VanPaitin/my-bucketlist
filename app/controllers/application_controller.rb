@@ -18,17 +18,21 @@ class ApplicationController < ActionController::API
   end
 
   def query_conditions(controller = params[:controller])
-    id = if controller == "api/v1/items"
-           params[:bucketlist_id]
-         elsif controller == "api/v1/bucketlists"
-           params[:id]
-         end
-    { id: id, user_id: current_user.id }
+    bucketlist_id = if controller == "api/v1/items"
+                      params[:bucketlist_id]
+                    elsif controller == "api/v1/bucketlists"
+                      params[:id]
+                    end
+    { id: bucketlist_id, user_id: current_user.id }
   end
 
   def set_bucketlist
     @bucketlist = Bucketlist.find_by(query_conditions)
-    head 404 unless @bucketlist
+    if @bucketlist
+      @bucketlist
+    else
+      render json: { null: "no bucketlist found" }, status: 404
+    end
   end
 
   def set_id
@@ -58,20 +62,18 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
-    @current_user ||= User.find_by(id: payload_token[:user_id], logged_in: true
-                                  )
+    @current_user ||= User.find_by(id: payload_token[:user_id],
+      logged_in: true)
   rescue
     nil
   end
 
   def logged_in?
-    !current_user.nil?
+    current_user.present?
   end
 
   def ensure_login
-    unless logged_in?
-      head 401
-    end
+    head 401 unless logged_in?
   end
 
   def expired_token
