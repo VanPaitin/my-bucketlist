@@ -7,6 +7,7 @@ class Bucketlist::SearchBucketlistTest < ActionDispatch::IntegrationTest
     @bucketlist2 = @user.bucketlists.create(name: "firstLIST")
     3.times { @user.bucketlists.create(name: "fakerLisT#{rand(100)}") }
   end
+
   test "returns bucketlists that match search params (case-insensitively)" do
     assert_equal 5, @user.bucketlists.count
     ApplicationController.stub_any_instance(:current_user, @user) do

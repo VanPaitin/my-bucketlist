@@ -16,6 +16,7 @@ class UpdateBucketlistTest < ActionDispatch::IntegrationTest
     assert_equal 200, response.status
     assert_equal "my bucketlist", @bucketlist.reload.name
   end
+
   test "unsuccessful update with invalid name" do
     ApplicationController.stub_any_instance(:current_user, @user) do
       patch "/api/v1/bucketlists/#{@bucketlist.id}",

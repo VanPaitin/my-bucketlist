@@ -14,6 +14,7 @@ class CreateBucketlistTest < ActionDispatch::IntegrationTest
     assert_equal Mime::JSON, response.content_type
     assert_equal json(response.body)[:name], @bucketlist.name
   end
+
   test "failure when name is too short" do
     assert_no_difference "@user.bucketlists.count" do
       ApplicationController.stub_any_instance(:current_user, @user) do

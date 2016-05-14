@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Item::CreateItemTest < ActionDispatch::IntegrationTest
   setup do
@@ -8,6 +8,7 @@ class Item::CreateItemTest < ActionDispatch::IntegrationTest
     @bucketlist2 = create(:bucketlist, user_id: @user2.id)
     @item = create(:item, bucketlist_id: @bucketlist.id)
   end
+
   test "can create an item with the right values" do
     assert_equal 1, @bucketlist.items.count
     assert_difference "@bucketlist.items.count", 1 do
@@ -21,6 +22,7 @@ class Item::CreateItemTest < ActionDispatch::IntegrationTest
     assert_response 201
     assert_equal Mime::JSON, response.content_type
   end
+
   test "cannot create an item with wrong credentials" do
     assert_no_difference "@bucketlist.items.count" do
       ApplicationController.stub_any_instance(:current_user, @user) do
@@ -31,8 +33,9 @@ class Item::CreateItemTest < ActionDispatch::IntegrationTest
     end
     assert_response 422
     assert_equal json(response.body)[:errors][:name],
-      ["is too short (minimum is 20 characters)"]
+                 ["is too short (minimum is 20 characters)"]
   end
+
   test "user cannot create item in another user's bucketlist" do
     assert_no_difference "Item.count" do
       ApplicationController.stub_any_instance(:current_user, @user) do

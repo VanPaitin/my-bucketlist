@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Item::DestroyItemTest < ActionDispatch::IntegrationTest
   setup do
@@ -6,6 +6,7 @@ class Item::DestroyItemTest < ActionDispatch::IntegrationTest
     @bucketlist = create(:bucketlist, user_id: @user.id)
     @item = create(:item, bucketlist_id: @bucketlist.id)
   end
+
   test "can delete a bucketlist item" do
     assert_equal 1, @bucketlist.items.count
     ApplicationController.stub_any_instance(:current_user, @user) do
