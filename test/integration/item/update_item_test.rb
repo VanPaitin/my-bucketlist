@@ -17,7 +17,7 @@ class Item::UpdateItemTest < ActionDispatch::IntegrationTest
     assert_response 200
     refute_equal @name, @item.reload.name
     refute_equal @done, @item.reload.done
-    assert_equal true, @item.reload.done
+    assert @item.reload.done
   end
 
   test "cannot update a bucketlist item with wrong credentials" do
@@ -28,12 +28,12 @@ class Item::UpdateItemTest < ActionDispatch::IntegrationTest
     assert_response 422
     assert_equal @name, @item.reload.name
     assert_equal @done, @item.reload.done
-    assert_equal false, @item.reload.done
+    refute @item.reload.done
     item_result = json(response.body)
-    assert_equal true, item_result[:errors].present?
-    assert_equal true, item_result[:errors][:name].present?
+    assert item_result[:errors].present?
+    assert item_result[:errors][:name].present?
     assert_equal json(response.body)[:errors][:name],
                  ["is too short (minimum is 20 characters)"]
-    refute_equal true, item_result[:errors][:done].present?
+    refute item_result[:errors][:done].present?
   end
 end

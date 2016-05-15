@@ -23,7 +23,7 @@ class Api::UsersController < ApplicationController
   end
 
   def destroy
-    User.delete_all(id: @user.id)
+    @user.destroy
     head 204
   end
 

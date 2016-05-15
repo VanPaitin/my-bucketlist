@@ -22,8 +22,8 @@ class LoginUserTest < ActionDispatch::IntegrationTest
          { email: @user.email, password: @fake_password }.to_json,
          "Content-Type" => "application/json"
     assert_response 422
-    assert_equal false, @user.reload.logged_in
-    assert_equal true, json(response.body)[:error].present?
+    refute @user.reload.logged_in
+    assert json(response.body)[:error].present?
     assert_equal json(response.body)[:error],
                  "invalid email/password combination"
   end

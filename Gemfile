@@ -23,4 +23,6 @@ group :test do
   gem "minitest-around"
   gem "minitest-reporters"
   gem "minitest-stub_any_instance"
+  gem 'shoulda', '~> 3.5'
+  gem 'shoulda-matchers', '~> 2.0'
 end

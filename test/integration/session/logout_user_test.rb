@@ -5,12 +5,12 @@ class LogoutUserTest < ActionDispatch::IntegrationTest
 
   test "a logged in user can logout successfully" do
     ApplicationController.stub_any_instance(:current_user, @user) do
-      assert_equal true, @user.logged_in
+      assert @user.logged_in
       get "/api/v1/auth/logout"
     end
-    assert_equal false, @user.reload.logged_in
+    refute @user.reload.logged_in
     assert_response 200
-    assert_equal true, json(response.body)[:msg].present?
+    assert json(response.body)[:msg].present?
     assert_equal json(response.body)[:msg], "You are logged out now"
   end
 

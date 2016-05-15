@@ -44,7 +44,7 @@ class Item::CreateItemTest < ActionDispatch::IntegrationTest
              "Content-Type" => "application/json"
       end
     end
-    assert_equal true, !!@bucketlist2
+    assert !!@bucketlist2
     assert_response 404
     assert_equal json(response.body)[:null], "no bucketlist found"
   end
