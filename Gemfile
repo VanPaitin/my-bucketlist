@@ -7,7 +7,7 @@ gem 'active_model_serializers'
 gem 'bcrypt', '~> 3.1.7'
 gem "jwt"
 gem 'spring', :group => :development
-
+gem "codeclimate-test-reporter", group: :test, require: nil
 
 group :development, :test do
   gem "factory_girl_rails"

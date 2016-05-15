@@ -9,9 +9,9 @@ engines:
     config:
       languages:
       - ruby
-      - javascript
-      - python
-      - php
+      # - javascript
+      # - python
+      # - php
   fixme:
     enabled: true
   rubocop:

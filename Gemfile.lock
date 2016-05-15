@@ -43,9 +43,12 @@ GEM
     ast (2.2.0)
     bcrypt (3.1.11)
     builder (3.2.2)
+    codeclimate-test-reporter (0.5.0)
+      simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.1)
     concurrent-ruby (1.0.2)
     database_cleaner (1.5.1)
+    docile (1.1.5)
     erubis (2.7.0)
     factory_girl (4.7.0)
       activesupport (>= 3.0.0)
@@ -135,6 +138,11 @@ GEM
     shoulda-context (1.2.1)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
+    simplecov (0.11.2)
+      docile (~> 1.1.0)
+      json (~> 1.8)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
     slop (3.6.0)
     spring (1.7.1)
     sprockets (3.6.0)
@@ -157,6 +165,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   bcrypt (~> 3.1.7)
+  codeclimate-test-reporter
   database_cleaner
   factory_girl_rails
   faker
