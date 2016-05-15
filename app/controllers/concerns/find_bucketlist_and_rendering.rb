@@ -1,4 +1,4 @@
-module Rendering
+module FindBucketlistAndRendering
   def query_conditions(controller = params[:controller])
     bucketlist_id = if controller == "api/v1/items"
                       params[:bucketlist_id]

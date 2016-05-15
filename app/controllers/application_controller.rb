@@ -48,7 +48,7 @@ class ApplicationController < ActionController::API
   def current_user
     if payload_token
       @current_user ||= User.find_by(id: payload_token[:user_id],
-                                   logged_in: true)
+                                     logged_in: true)
     end
   end
 

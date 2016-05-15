@@ -26,6 +26,6 @@ class Api::V1::SessionsController < ApplicationController
     @user.update_attribute(:logged_in, true)
     token = JsonWebToken.encode user_id: @user.id
     render json: { success: "Successfully logged in", auth_token: token },
-      status: 200
+           status: 200
   end
 end

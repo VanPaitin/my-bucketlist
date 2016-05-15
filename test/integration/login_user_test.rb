@@ -7,10 +7,12 @@ class LoginUserTest < ActionDispatch::IntegrationTest
   end
 
   test "can log in a user successfully with right credentials" do
+    assert_equal false, @user.logged_in
     post "/api/v1/auth/login",
          { email: @user.email, password: @user.password }.to_json,
          "Content-Type" => "application/json"
     assert_equal 200, response.status
+    assert_equal @user.reload.logged_in, true
     assert_equal Mime::JSON, response.content_type
     assert_includes json(response.body)[:success], "Successfully logged in"
   end
@@ -20,8 +22,9 @@ class LoginUserTest < ActionDispatch::IntegrationTest
          { email: @user.email, password: @fake_password }.to_json,
          "Content-Type" => "application/json"
     assert_response 422
+    assert_equal false, @user.reload.logged_in
     assert_equal true, json(response.body)[:error].present?
     assert_equal json(response.body)[:error],
-      "invalid email/password combination"
+                 "invalid email/password combination"
   end
 end

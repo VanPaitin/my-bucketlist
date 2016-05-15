@@ -1,7 +1,7 @@
 class Api::V1::ItemsController < ApplicationController
   before_action :set_bucketlist
   before_action :find_item, except: :create
-  include Rendering
+  include FindBucketlistAndRendering
   def create
     item = @bucketlist.items.new(item_params)
     if item.save

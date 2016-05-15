@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160509022020) do
+ActiveRecord::Schema.define(version: 20160515012152) do
 
   create_table "bucketlists", force: :cascade do |t|
     t.string   "name"
@@ -24,10 +24,10 @@ ActiveRecord::Schema.define(version: 20160509022020) do
 
   create_table "items", force: :cascade do |t|
     t.text     "name"
-    t.boolean  "done"
+    t.boolean  "done",          default: false
     t.integer  "bucketlist_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   add_index "items", ["bucketlist_id"], name: "index_items_on_bucketlist_id"
@@ -36,9 +36,9 @@ ActiveRecord::Schema.define(version: 20160509022020) do
     t.string   "name"
     t.string   "email"
     t.string   "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.boolean  "logged_in"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.boolean  "logged_in",       default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
