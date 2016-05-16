@@ -45,8 +45,6 @@ class ApplicationController < ActionController::API
     raise ExpirationError
   rescue JWT::VerificationError, JWT::DecodeError
     raise NotAuthenticatedError
-  rescue
-    nil
   end
 
   def current_user
@@ -72,5 +70,4 @@ class ApplicationController < ActionController::API
     render json: { error: "Not Authenticated. invalid or missing token" },
            status: 401
   end
-
 end
