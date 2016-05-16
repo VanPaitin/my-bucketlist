@@ -31,5 +31,4 @@ class Bucketlist::SearchBucketlistTest < ActionDispatch::IntegrationTest
     bucketlists = json(response.body)
     assert_equal "No records found", bucketlists[:message]
   end
-
 end
