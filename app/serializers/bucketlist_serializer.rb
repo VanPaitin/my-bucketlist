@@ -3,6 +3,6 @@ class BucketlistSerializer < ActiveModel::Serializer
   has_many :items
 
   def created_by
-    object.user_id
+    object.user.name
   end
 end

@@ -4,6 +4,7 @@ class ApplicationController < ActionController::API
   include ActionController::Serialization
   rescue_from ExpirationError, with: :expired_token
   rescue_from NotAuthenticatedError, with: :not_authenticated
+  rescue_from ActionController::ParameterMissing, with: :wrong_parameters
   def invalid_endpoint
     render json: { error: "Invalid endpoint, check documentation"\
     " for more details" }, status: 400
@@ -69,5 +70,10 @@ class ApplicationController < ActionController::API
   def not_authenticated
     render json: { error: "Not Authenticated. invalid or missing token" },
            status: 401
+  end
+
+  def wrong_parameters
+    render json: { error: "Missing or wrong parameters, see docs for details" },
+      status: 400
   end
 end

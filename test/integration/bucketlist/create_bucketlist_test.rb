@@ -27,4 +27,15 @@ class CreateBucketlistTest < ActionDispatch::IntegrationTest
     assert_includes json(response.body)[
       :errors][:name], "is too short (minimum is 2 characters)"
   end
+
+  test "should fail if parameters are not right" do
+    assert_no_difference "@user.bucketlists.count" do
+      ApplicationController.stub_any_instance(:current_user, @user) do
+        post "/api/v1/bucketlists"
+      end
+    end
+    assert_response 400
+    assert_equal "Missing or wrong parameters, see docs for details",
+                 json(response.body)[:error]
+  end
 end
