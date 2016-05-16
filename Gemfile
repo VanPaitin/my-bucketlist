@@ -8,7 +8,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem "jwt"
 gem 'spring', :group => :development
 gem "codeclimate-test-reporter", group: :test, require: nil
-
+gem "pg", :group => :production
 group :development, :test do
   gem "factory_girl_rails"
   gem "faker"

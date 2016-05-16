@@ -68,4 +68,9 @@ class ApplicationController < ActionController::API
     render json: { error: "Not Authenticated. invalid or missing token" },
            status: 401
   end
+
+  def invalid_endpoint
+    render json: { error: "Invalid endpoint, check documentation"\
+    " for more details" }, status: 400
+  end
 end

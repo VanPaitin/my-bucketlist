@@ -9,4 +9,5 @@ Rails.application.routes.draw do
     end
     resources :users, only: [:show, :create, :update, :destroy]
   end
+  match "*invalid_endpoint", to: "application#invalid_endpoint", via: :all
 end
