@@ -25,11 +25,16 @@ class Pagination
   end
 
   def paginate
+    result = (query_object.offset(offset_param).limit(limit))
+    if result.empty?
+      nil
+    else
     {
       bucketlist: ActiveModel::ArraySerializer.
-        new(query_object.offset(offset_param).limit(limit)),
+        new(result),
       info_summary: set_meta_tag
     }
+    end
   end
 
   # methods for setting meta tags

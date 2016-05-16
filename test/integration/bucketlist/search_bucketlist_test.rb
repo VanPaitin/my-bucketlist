@@ -27,8 +27,9 @@ class Bucketlist::SearchBucketlistTest < ActionDispatch::IntegrationTest
     ApplicationController.stub_any_instance(:current_user, @user) do
       get "/api/v1/bucketlists", q: "andela"
     end
-    assert_response 200
+    assert_response 404
     bucketlists = json(response.body)
-    assert_empty bucketlists[:bucketlist]
+    assert_equal "No records found", bucketlists[:message]
   end
+
 end

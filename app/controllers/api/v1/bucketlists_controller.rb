@@ -5,7 +5,7 @@ class Api::V1::BucketlistsController < ApplicationController
     q = params[:q]
     bucketlists = get_bucketlists(q)
     page = Pagination.new(params, bucketlists)
-    if !page.paginate.empty?
+    if page.paginate
       render json: page.paginate, root: false, status: 200
     else
       render json: { message: "No records found" }, status: 404
