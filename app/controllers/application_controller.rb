@@ -1,9 +1,13 @@
 class ApplicationController < ActionController::API
   before_filter :add_allow_credentials_headers
-  before_action :ensure_login
+  before_action :ensure_login, except: :invalid_endpoint
   include ActionController::Serialization
   rescue_from ExpirationError, with: :expired_token
   rescue_from NotAuthenticatedError, with: :not_authenticated
+  def invalid_endpoint
+    render json: { error: "Invalid endpoint, check documentation"\
+    " for more details" }, status: 400
+  end
 
   private
 
@@ -69,8 +73,4 @@ class ApplicationController < ActionController::API
            status: 401
   end
 
-  def invalid_endpoint
-    render json: { error: "Invalid endpoint, check documentation"\
-    " for more details" }, status: 400
-  end
 end
