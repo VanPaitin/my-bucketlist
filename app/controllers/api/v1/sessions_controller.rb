@@ -21,7 +21,8 @@ class Api::V1::SessionsController < ApplicationController
   def set_user
     @user = User.find_by(email: params[:email].downcase)
   rescue
-    render json: { email: "please pass in a valid email address" }
+    render json: { email: "please pass in a valid email address" },
+           status: 400
   end
 
   def issue_token
