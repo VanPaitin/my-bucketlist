@@ -21,7 +21,7 @@ class Api::V1::ItemsController < ApplicationController
 
   def destroy
     @item.destroy
-    render json: { destroy: "item successfully deleted" }, status: 204
+    render json: { destroy: "item successfully deleted" }, status: 200
   end
 
   private

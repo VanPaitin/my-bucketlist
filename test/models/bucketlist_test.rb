@@ -11,6 +11,7 @@ class BucketlistTest < ActiveSupport::TestCase
   should have_many(:items).dependent(:destroy)
   should validate_presence_of(:name)
   should validate_length_of(:name).is_at_least(2).is_at_most(40)
+  should validate_uniqueness_of(:name).case_insensitive
 
   test "can return the result of a given search term" do
     assert_equal 5, @user.bucketlists.count

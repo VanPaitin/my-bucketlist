@@ -74,6 +74,6 @@ class ApplicationController < ActionController::API
 
   def wrong_parameters
     render json: { error: "Missing or wrong parameters, see docs for details" },
-      status: 400
+           status: 400
   end
 end

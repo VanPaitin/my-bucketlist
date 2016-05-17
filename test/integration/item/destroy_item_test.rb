@@ -14,6 +14,6 @@ class Item::DestroyItemTest < ActionDispatch::IntegrationTest
         delete "/api/v1/bucketlists/#{@bucketlist.id}/items/#{@item.id}"
       end
     end
-    assert_response 204
+    assert_response 200
   end
 end
