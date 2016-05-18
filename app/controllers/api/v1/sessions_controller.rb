@@ -2,7 +2,7 @@ class Api::V1::SessionsController < ApplicationController
   skip_before_action :ensure_login, only: :create
   before_action :set_user, only: :create
   def create
-    if @user && !!@user.authenticate(params[:password])
+    if @user && @user.authenticate(params[:password])
       issue_token
     else
       render json: { error: "invalid email/password combination" },

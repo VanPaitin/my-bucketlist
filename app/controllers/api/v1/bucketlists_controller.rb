@@ -1,6 +1,7 @@
 class Api::V1::BucketlistsController < ApplicationController
   before_action :set_bucketlist, except: [:index, :create]
-  include FindBucketlistAndRendering
+  include Rendering
+  include FindBucketlist
   def index
     q = params[:q]
     bucketlists = get_bucketlists(q)

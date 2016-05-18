@@ -2,6 +2,7 @@ class ApplicationController < ActionController::API
   before_filter :add_allow_credentials_headers
   before_action :ensure_login, except: :invalid_endpoint
   include ActionController::Serialization
+  include ErrorHandling
   rescue_from ExpirationError, with: :expired_token
   rescue_from NotAuthenticatedError, with: :not_authenticated
   rescue_from ActionController::ParameterMissing, with: :wrong_parameters
@@ -61,19 +62,5 @@ class ApplicationController < ActionController::API
 
   def ensure_login
     head 401 unless logged_in?
-  end
-
-  def expired_token
-    render json: { error: "expired token, login again" }, status: 401
-  end
-
-  def not_authenticated
-    render json: { error: "Not Authenticated. invalid or missing token" },
-           status: 401
-  end
-
-  def wrong_parameters
-    render json: { error: "Missing or wrong parameters, see docs for details" },
-           status: 400
   end
 end
