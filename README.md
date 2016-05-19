@@ -17,6 +17,22 @@ _**Lifeplans 1**_ is an API service that allows users create bucketlists to stor
 
 For full access to the API, a user account is required. After registration, an initial request is made to log in to user account. This request generates a JSON Web Token, which is returned in the response. This token is used to authenticate subsequent requests to the API.
 
+## API EndPoints
+
+The following endpoints are available
+
+| EndPoint                                |   Functionality                      |
+| --------------------------------------- | ------------------------------------:|
+| POST /auth/login                        | Logs a user in                       |
+| GET /auth/logout                        | Logs a user out                      |
+| POST /bucketlists/                      | Create a new bucket list             |
+| GET /bucketlists/                       | List all the created bucket lists    |
+| GET /bucketlists/:id                    | Get single bucket list               |
+| PUT /bucketlists/:id                    | Update this bucketlist               |
+| DELETE /bucketlists/:id                 | Delete this single bucketlist        |
+| POST /bucketlists/:id/items/            | Create a new item in bucketlist      |
+| PUT /bucketlists/:id/items/:item_id     | Update a bucketlist item             |
+| DELETE /bucketlists/:id/items/:item_id  | Delete an item in a bucket lists     |
 
 ## Dependencies
 
@@ -50,22 +66,6 @@ Run the following command from the terminal to get all tests running
 rake test
 ```
 
-## API EndPoints
-
-The following endpoints are available
-
-| EndPoint                                |   Functionality                      |
-| --------------------------------------- | ------------------------------------:|
-| POST /auth/login                        | Logs a user in                       |
-| GET /auth/logout                        | Logs a user out                      |
-| POST /bucketlists/                      | Create a new bucket list             |
-| GET /bucketlists/                       | List all the created bucket lists    |
-| GET /bucketlists/:id                    | Get single bucket list               |
-| PUT /bucketlists/:id                    | Update this bucketlist               |
-| DELETE /bucketlists/:id                 | Delete this single bucketlist        |
-| POST /bucketlists/:id/items/            | Create a new item in bucketlist      |
-| PUT /bucketlists/:id/items/:item_id     | Update a bucketlist item             |
-| DELETE /bucketlists/:id/items/:item_id  | Delete an item in a bucket lists     |
 
 
 ## Versioning
@@ -83,9 +83,9 @@ The full documentation for the API and the available endpoints is described [her
 ## Contributing
 
 1. [Fork this repo](https://github.com/andela-mpitan/my-bucketlist/fork)
- 
+
 2. Create your feature branch `git checkout -b my-new-feature`
- 
+
 3. Commit your changes `git commit -am 'Add some feature'`
 
 4. Push to the branch `git push origin my-new-feature`
