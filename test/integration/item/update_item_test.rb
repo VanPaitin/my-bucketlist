@@ -20,10 +20,10 @@ class Item::UpdateItemTest < ActionDispatch::IntegrationTest
     assert @item.reload.done
   end
 
-  test "cannot update a bucketlist item with wrong credentials" do
+  test "cannot update a bucketlist item with a blank name" do
     ApplicationController.stub_any_instance(:current_user, @user) do
       put "/api/v1/bucketlists/#{@bucketlist.id}/items/#{@item.id}",
-          name: Faker::Lorem.characters(19), done: true
+          name: "", done: true
     end
     assert_response 422
     assert_equal @name, @item.reload.name
@@ -32,8 +32,6 @@ class Item::UpdateItemTest < ActionDispatch::IntegrationTest
     item_result = json(response.body)
     assert item_result[:errors].present?
     assert item_result[:errors][:name].present?
-    assert_equal json(response.body)[:errors][:name],
-                 ["is too short (minimum is 20 characters)"]
     refute item_result[:errors][:done].present?
   end
 end

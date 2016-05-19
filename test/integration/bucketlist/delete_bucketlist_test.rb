@@ -15,7 +15,9 @@ class DeleteBucketlistTest < ActionDispatch::IntegrationTest
         delete "/api/v1/bucketlists/#{@bucketlist.id}"
       end
     end
-    assert_equal 204, response.status
+    assert_equal 200, response.status
+    assert_equal "bucketlist destroyed successfully",
+                 json(response.body)[:success]
   end
 
   test "cannot delete a bucketlist that belongs to another user" do

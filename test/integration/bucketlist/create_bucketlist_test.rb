@@ -7,8 +7,8 @@ class CreateBucketlistTest < ActionDispatch::IntegrationTest
   end
   test "success when name is of normal length" do
     ApplicationController.stub_any_instance(:current_user, @user) do
-      post "/api/v1/bucketlists", { bucketlist: { name: @bucketlist.name } }.
-        to_json, "Content-Type" => "application/json"
+      post "/api/v1/bucketlists", { name: @bucketlist.name }.to_json,
+           "Content-Type" => "application/json"
     end
     assert_equal 201, response.status
     assert_equal Mime::JSON, response.content_type
@@ -18,8 +18,8 @@ class CreateBucketlistTest < ActionDispatch::IntegrationTest
   test "failure when name is too short" do
     assert_no_difference "@user.bucketlists.count" do
       ApplicationController.stub_any_instance(:current_user, @user) do
-        post "/api/v1/bucketlists", { bucketlist: { name: "T" } }.
-          to_json, "Content-Type" => "application/json"
+        post "/api/v1/bucketlists", { name: "T" }.to_json,
+             "Content-Type" => "application/json"
       end
     end
     assert_equal 422, response.status
@@ -34,8 +34,6 @@ class CreateBucketlistTest < ActionDispatch::IntegrationTest
         post "/api/v1/bucketlists"
       end
     end
-    assert_response 400
-    assert_equal "Missing or wrong parameters, see docs for details",
-                 json(response.body)[:error]
+    assert_response 422
   end
 end

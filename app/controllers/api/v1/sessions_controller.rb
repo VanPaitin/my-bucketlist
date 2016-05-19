@@ -1,9 +1,12 @@
 class Api::V1::SessionsController < ApplicationController
   skip_before_action :ensure_login, only: :create
   before_action :set_user, only: :create
+
   def create
     if @user && @user.authenticate(params[:password])
-      issue_token
+      token = issue_token
+      render json: { success: "Successfully logged in", auth_token: token },
+             status: 200
     else
       render json: { error: "invalid email/password combination" },
              status: 422
@@ -13,7 +16,7 @@ class Api::V1::SessionsController < ApplicationController
   def destroy
     current_user.update_attribute(:logged_in, false)
     @current_user = nil
-    render json: { msg: "You are logged out now" }, status: 200
+    render json: { success: "You are logged out now" }, status: 200
   end
 
   private
@@ -23,12 +26,5 @@ class Api::V1::SessionsController < ApplicationController
   rescue
     render json: { email: "please pass in a valid email address" },
            status: 400
-  end
-
-  def issue_token
-    @user.update_attribute(:logged_in, true)
-    token = JsonWebToken.encode user_id: @user.id
-    render json: { success: "Successfully logged in", auth_token: token },
-           status: 200
   end
 end

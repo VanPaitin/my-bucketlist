@@ -10,7 +10,7 @@ class UpdateBucketlistTest < ActionDispatch::IntegrationTest
   test "can update a bucketlist" do
     ApplicationController.stub_any_instance(:current_user, @user) do
       patch "/api/v1/bucketlists/#{@bucketlist.id}",
-            { bucketlist: { name: "my bucketlist" } }.to_json,
+            { name: "my bucketlist" }.to_json,
             "Accept" => Mime::JSON, "Content-Type" => Mime::JSON.to_s
     end
     assert_equal 200, response.status
@@ -20,7 +20,7 @@ class UpdateBucketlistTest < ActionDispatch::IntegrationTest
   test "unsuccessful update with invalid name" do
     ApplicationController.stub_any_instance(:current_user, @user) do
       patch "/api/v1/bucketlists/#{@bucketlist.id}",
-            { bucketlist: { name: "c" } }.to_json,
+            { name: "c" }.to_json,
             "Accept" => Mime::JSON, "Content-Type" => Mime::JSON.to_s
     end
     refute_equal "c", @bucketlist.reload.name

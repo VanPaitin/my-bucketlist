@@ -25,7 +25,7 @@ class Pagination
   end
 
   def paginate
-    result = query_object.offset(offset_param).limit(limit)
+    result = query_object.order(id: :asc).offset(offset_param).limit(limit)
     return nil if result.empty?
     {
       bucketlist: ActiveModel::ArraySerializer.new(result),

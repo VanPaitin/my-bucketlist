@@ -23,17 +23,16 @@ class Item::CreateItemTest < ActionDispatch::IntegrationTest
     assert_equal Mime::JSON, response.content_type
   end
 
-  test "cannot create an item with wrong credentials" do
+  test "cannot create an item without a name" do
     assert_no_difference "@bucketlist.items.count" do
       ApplicationController.stub_any_instance(:current_user, @user) do
         post "/api/v1/bucketlists/#{@bucketlist.id}/items",
-             { name: "too short", done: false }.to_json,
+             { name: "", done: false }.to_json,
              "Content-Type" => "application/json"
       end
     end
     assert_response 422
-    assert_equal json(response.body)[:errors][:name],
-                 ["is too short (minimum is 20 characters)"]
+    assert_equal json(response.body)[:errors][:name], ["can't be blank"]
   end
 
   test "user cannot create item in another user's bucketlist" do

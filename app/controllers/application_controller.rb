@@ -5,11 +5,6 @@ class ApplicationController < ActionController::API
   include ErrorHandling
   rescue_from ExpirationError, with: :expired_token
   rescue_from NotAuthenticatedError, with: :not_authenticated
-  rescue_from ActionController::ParameterMissing, with: :wrong_parameters
-  def invalid_endpoint
-    render json: { error: "Invalid endpoint, check documentation"\
-    " for more details" }, status: 400
-  end
 
   private
 
@@ -23,11 +18,17 @@ class ApplicationController < ActionController::API
     response.headers["Access-Control-Allow-Credentials"] = "true"
   end
 
+  def issue_token
+    @user.update_attribute(:logged_in, true)
+    JsonWebToken.encode user_id: @user.id
+  end
+
   def set_id
     if params_integrity?
       current_user.id
     else
-      head 403
+      render json: { forbidden: "You are not allowed to perform this action" },
+             status: 403
     end
   end
 
@@ -61,6 +62,9 @@ class ApplicationController < ActionController::API
   end
 
   def ensure_login
-    head 401 unless logged_in?
+    unless logged_in?
+      render json: { Unauthorized: "Please login first" },
+             status: 401 unless logged_in?
+    end
   end
 end

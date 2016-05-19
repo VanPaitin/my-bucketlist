@@ -13,14 +13,6 @@ class UserTest < ActiveSupport::TestCase
     assert @user.valid?
   end
 
-  test "user's email must be saved before saving in database" do
-    unsaved_user_email = @user.email
-    @user.save
-    saved_user = @user.reload
-    refute_equal unsaved_user_email, saved_user.email
-    assert_equal unsaved_user_email.downcase, saved_user.email
-  end
-
   test "email validation should reject invalid addresses" do
     invalid_addresses = %w[user@example,com user_at_foo.org user.name@example.
                            foo@bar_baz.com foo@bar+baz.com]
@@ -28,15 +20,6 @@ class UserTest < ActiveSupport::TestCase
       @user.email = invalid_address
       assert_not @user.valid?, "#{invalid_address.inspect} should be invalid"
     end
-  end
-
-  test "email addresses should be unique case-insensitively" do
-    duplicate_user = @user.dup
-    duplicate_user.email = @user.email.upcase
-    @user.save
-    refute duplicate_user.valid?
-    assert_equal ["Email has already been taken"],
-                 duplicate_user.errors.full_messages
   end
 
   test "password should be present (nonblank)" do

@@ -3,6 +3,7 @@ class Api::V1::ItemsController < ApplicationController
   before_action :find_item, except: :create
   include Rendering
   include FindBucketlist
+
   def create
     item = @bucketlist.items.new(item_params)
     if item.save
@@ -22,7 +23,7 @@ class Api::V1::ItemsController < ApplicationController
 
   def destroy
     @item.destroy
-    render json: { destroy: "item successfully deleted" }, status: 200
+    render json: { success: "item successfully deleted" }, status: 200
   end
 
   private

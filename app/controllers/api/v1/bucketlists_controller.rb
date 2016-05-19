@@ -2,10 +2,9 @@ class Api::V1::BucketlistsController < ApplicationController
   before_action :set_bucketlist, except: [:index, :create]
   include Rendering
   include FindBucketlist
+
   def index
-    q = params[:q]
-    bucketlists = get_bucketlists(q)
-    page = Pagination.new(params, bucketlists)
+    page = Pagination.new(params, get_bucketlists)
     if page.paginate
       render json: page.paginate, root: false, status: 200
     else
@@ -36,18 +35,18 @@ class Api::V1::BucketlistsController < ApplicationController
 
   def destroy
     @bucketlist.destroy
-    head 204
+    render json: { success: "bucketlist destroyed successfully" }, status: 200
   end
 
   private
 
   def bucketlist_params
-    params.require(:bucketlist).permit(:name)
+    params.permit(:name)
   end
 
-  def get_bucketlists(q)
-    if q
-      Bucketlist.search(current_user, q)
+  def get_bucketlists(search_term = params[:q])
+    if search_term
+      Bucketlist.search(current_user, search_term)
     else
       current_user.bucketlists
     end

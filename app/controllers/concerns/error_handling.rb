@@ -8,8 +8,8 @@ module ErrorHandling
            status: 401
   end
 
-  def wrong_parameters
-    render json: { error: "Missing or wrong parameters, see docs for details" },
-           status: 400
+  def invalid_endpoint
+    render json: { error: "Invalid endpoint, check documentation"\
+    " for more details" }, status: 400
   end
 end

@@ -10,8 +10,8 @@ class LogoutUserTest < ActionDispatch::IntegrationTest
     end
     refute @user.reload.logged_in
     assert_response 200
-    assert json(response.body)[:msg].present?
-    assert_equal json(response.body)[:msg], "You are logged out now"
+    assert json(response.body)[:success].present?
+    assert_equal json(response.body)[:success], "You are logged out now"
   end
 
   test "cannot logout if you are not logged in" do
