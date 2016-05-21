@@ -12,6 +12,10 @@ class ApplicationController < ActionController::API
     false
   end
 
+  def language
+    @language ||= Languages.new
+  end
+
   def add_allow_credentials_headers
     response.headers["Access-Control-Allow-Origin"] = request.
                                                       headers["Origin"] || "*"
@@ -27,7 +31,7 @@ class ApplicationController < ActionController::API
     if params_integrity?
       current_user.id
     else
-      render json: { forbidden: "You are not allowed to perform this action" },
+      render json: { forbidden: language.forbidden },
              status: 403
     end
   end
@@ -63,7 +67,7 @@ class ApplicationController < ActionController::API
 
   def ensure_login
     unless logged_in?
-      render json: { Unauthorized: "Please login first" },
+      render json: { Unauthorized: language.unauthorized },
              status: 401 unless logged_in?
     end
   end

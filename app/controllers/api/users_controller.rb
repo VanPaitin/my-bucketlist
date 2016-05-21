@@ -10,7 +10,7 @@ class Api::UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       token = issue_token
-      render json: { success: "Successfully created", auth_token: token,
+      render json: { success: language.successful_creation, auth_token: token,
                      user_details: UserSerializer.new(@user) }, status: 201
     else
       render json: { errors: @user.errors }, status: 422
@@ -27,7 +27,8 @@ class Api::UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    render json: { success: "account deleted successfully" }, status: 200
+    render json: { success: language.successful_deletion("Account") },
+           status: 200
   end
 
   private

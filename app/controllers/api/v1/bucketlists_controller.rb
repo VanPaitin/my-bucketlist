@@ -8,7 +8,7 @@ class Api::V1::BucketlistsController < ApplicationController
     if page.paginate
       render json: page.paginate, root: false, status: 200
     else
-      render json: { message: "No records found" }, status: 404
+      render json: { message: language.not_found("bucketlists") }, status: 404
     end
   end
 
@@ -35,7 +35,8 @@ class Api::V1::BucketlistsController < ApplicationController
 
   def destroy
     @bucketlist.destroy
-    render json: { success: "bucketlist destroyed successfully" }, status: 200
+    render json: { success: language.successful_deletion("Bucketlist") },
+           status: 200
   end
 
   private

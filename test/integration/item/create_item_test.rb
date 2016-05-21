@@ -39,6 +39,6 @@ class Item::CreateItemTest < ActionDispatch::IntegrationTest
     end
     refute @bucketlist2.nil?
     assert_response 404
-    assert_equal json(response.body)[:null], "no bucketlist found"
+    assert_equal json(response.body)[:error], "bucketlist could not be found"
   end
 end

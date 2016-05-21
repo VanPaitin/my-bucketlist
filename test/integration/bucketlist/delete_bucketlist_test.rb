@@ -17,7 +17,7 @@ class DeleteBucketlistTest < ActionDispatch::IntegrationTest
       delete "/api/v1/bucketlists/#{@bucketlist.id}", {}, @headers
     end
     assert_equal 200, response.status
-    assert_equal "bucketlist destroyed successfully",
+    assert_equal "Bucketlist deleted successfully",
                  json(response.body)[:success]
   end
 

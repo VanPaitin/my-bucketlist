@@ -23,7 +23,7 @@ class Api::V1::ItemsController < ApplicationController
 
   def destroy
     @item.destroy
-    render json: { success: "item successfully deleted" }, status: 200
+    render json: { success: language.successful_deletion("Item") }, status: 200
   end
 
   private
@@ -34,6 +34,6 @@ class Api::V1::ItemsController < ApplicationController
 
   def find_item
     @item = Item.find_by(bucketlist_id: @bucketlist.id, id: params[:id])
-    render json: { error: "item could not be found" }, status: 404 unless @item
+    render json: { error: language.not_found("Item") }, status: 404 unless @item
   end
 end

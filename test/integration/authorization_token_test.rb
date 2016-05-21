@@ -26,6 +26,6 @@ class AuthorizationTokenTest < ActionDispatch::IntegrationTest
     sleep 2
     get "/api/v1/bucketlists", {}, "Authorization" => token
     assert_response 401
-    assert_equal "expired token, login again", json(response.body)[:error]
+    assert_equal "Expired token, login again", json(response.body)[:error]
   end
 end

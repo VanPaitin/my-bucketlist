@@ -8,8 +8,8 @@ module FindBucketlist
 
   def set_bucketlist
     @bucketlist ||= Bucketlist.find_by(query_conditions)
-    render json: { null: "no bucketlist found" }, status: 404 unless @bucketlist
-
+    render json: { error: language.not_found("bucketlist") },
+           status: 404 unless @bucketlist
     @bucketlist
   end
 

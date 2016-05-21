@@ -28,6 +28,6 @@ class Bucketlist::SearchBucketlistTest < ActionDispatch::IntegrationTest
     get "/api/v1/bucketlists?q=andela", {}, @headers
     assert_response 404
     bucketlists = json(response.body)
-    assert_equal "No records found", bucketlists[:message]
+    assert_equal "bucketlists could not be found", bucketlists[:message]
   end
 end

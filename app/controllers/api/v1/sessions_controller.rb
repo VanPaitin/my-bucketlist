@@ -5,10 +5,10 @@ class Api::V1::SessionsController < ApplicationController
   def create
     if @user && @user.authenticate(params[:password])
       token = issue_token
-      render json: { success: "Successfully logged in", auth_token: token },
+      render json: { success: language.login, auth_token: token },
              status: 200
     else
-      render json: { error: "invalid email/password combination" },
+      render json: { error: language.wrong_email_or_password },
              status: 422
     end
   end
@@ -16,7 +16,7 @@ class Api::V1::SessionsController < ApplicationController
   def destroy
     current_user.update_attribute(:logged_in, false)
     @current_user = nil
-    render json: { success: "You are logged out now" }, status: 200
+    render json: { success: language.logout }, status: 200
   end
 
   private
@@ -24,7 +24,6 @@ class Api::V1::SessionsController < ApplicationController
   def set_user
     @user = User.find_by(email: params[:email].downcase)
   rescue
-    render json: { email: "please pass in a valid email address" },
-           status: 400
+    render json: { email: language.invalid_email }, status: 400
   end
 end
