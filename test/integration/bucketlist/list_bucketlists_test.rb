@@ -4,13 +4,14 @@ class ListBucketlistsTest < ActionDispatch::IntegrationTest
   setup do
     @user = create(:user)
     104.times { create(:bucketlist, user_id: @user.id) }
+    token = token(@user)
+    @headers = { "Content-Type" => "application/json",
+                 "Authorization" => token }
   end
 
   test "returns a default number of 20 records" do
     assert_equal 104, @user.bucketlists.count
-    ApplicationController.stub_any_instance(:current_user, @user) do
-      get "/api/v1/bucketlists"
-    end
+    get "/api/v1/bucketlists", {}, @headers
     assert_equal 200, response.status
     refute_empty response.body
     bucketlists = json(response.body)
@@ -18,9 +19,7 @@ class ListBucketlistsTest < ActionDispatch::IntegrationTest
   end
 
   test "returns the number of records specified" do
-    ApplicationController.stub_any_instance(:current_user, @user) do
-      get "/api/v1/bucketlists", limit: 34
-    end
+    get "/api/v1/bucketlists?limit=34", {}, @headers
     assert_equal 200, response.status
     bucketlists = json(response.body)
     assert_equal 34, bucketlists[:bucketlist].count
@@ -28,9 +27,7 @@ class ListBucketlistsTest < ActionDispatch::IntegrationTest
 
   test "cannot return more than 100 bucketlists at a time" do
     assert_equal 104, @user.bucketlists.count
-    ApplicationController.stub_any_instance(:current_user, @user) do
-      get "/api/v1/bucketlists", limit: 103
-    end
+    get "/api/v1/bucketlists?limit=103", {}, @headers
     assert_equal 200, response.status
     bucketlists = json(response.body)
     refute_equal @user.bucketlists.count, bucketlists[:bucketlist].count
@@ -38,9 +35,7 @@ class ListBucketlistsTest < ActionDispatch::IntegrationTest
   end
 
   test "returns 20 records (default) that are in a particular page" do
-    ApplicationController.stub_any_instance(:current_user, @user) do
-      get "/api/v1/bucketlists", page: 3
-    end
+    get "/api/v1/bucketlists?page=3", {}, @headers
     assert_equal 200, response.status
     bucketlists = json(response.body)
     assert_equal 20, bucketlists[:bucketlist].count
@@ -51,9 +46,7 @@ class ListBucketlistsTest < ActionDispatch::IntegrationTest
   end
 
   test "returns number of records specified on a given page" do
-    ApplicationController.stub_any_instance(:current_user, @user) do
-      get "/api/v1/bucketlists", page: 3, limit: 12
-    end
+    get "/api/v1/bucketlists?page=3&limit=12", {}, @headers
     assert_equal 200, response.status
     bucketlists = json(response.body)
     assert_equal 12, bucketlists[:bucketlist].count

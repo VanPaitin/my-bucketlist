@@ -2,7 +2,7 @@ require "test_helper"
 
 class LoginUserTest < ActionDispatch::IntegrationTest
   setup do
-    @user = create(:user)
+    @user = create(:user, logged_in: false)
     @fake_password = Faker::Lorem.characters(10)
   end
 

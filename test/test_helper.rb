@@ -9,8 +9,8 @@ reporter_options = { color: true }
 Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(reporter_options),
                           Minitest::Reporters::SpecReporter.new(reporter_options)]
 DatabaseCleaner.clean_with :truncation
-
 DatabaseCleaner.strategy = :transaction
+
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml
   # for all tests in alphabetical order.
@@ -23,6 +23,10 @@ class ActiveSupport::TestCase
 
   def user
     build(:user)
+  end
+
+  def token(user)
+    JsonWebToken.encode(user_id: user.id)
   end
 end
 class Minitest::Spec
