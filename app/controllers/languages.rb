@@ -11,10 +11,6 @@ class Languages
     "You are not allowed to perform this action"
   end
 
-  def unauthorized
-    "Please login first"
-  end
-
   def not_found(object)
     object + " could not be found"
   end

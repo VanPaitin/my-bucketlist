@@ -61,14 +61,7 @@ class ApplicationController < ActionController::API
     end
   end
 
-  def logged_in?
-    current_user.present?
-  end
-
   def ensure_login
-    unless logged_in?
-      render json: { Unauthorized: language.unauthorized },
-             status: 401 unless logged_in?
-    end
+    current_user.present?
   end
 end
