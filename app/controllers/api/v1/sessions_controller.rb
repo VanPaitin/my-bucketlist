@@ -22,7 +22,7 @@ class Api::V1::SessionsController < ApplicationController
   private
 
   def set_user
-    @user = User.find_by(email: params[:email].downcase)
+    @user = User.find_by(email: params[:email])
   rescue
     render json: { email: language.invalid_email }, status: 400
   end
