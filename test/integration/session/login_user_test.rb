@@ -27,11 +27,4 @@ class LoginUserTest < ActionDispatch::IntegrationTest
     assert_equal json(response.body)[:error],
                  "invalid email/password combination"
   end
-
-  test "cannot login with invalid parameters" do
-    post "/api/v1/auth/login"
-    assert_response 400
-    assert_equal "please pass in a valid email address",
-                 json(response.body)[:email]
-  end
 end

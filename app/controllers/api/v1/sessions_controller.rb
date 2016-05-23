@@ -23,7 +23,5 @@ class Api::V1::SessionsController < ApplicationController
 
   def set_user
     @user = User.find_by(email: params[:email])
-  rescue
-    render json: { email: language.invalid_email }, status: 400
   end
 end

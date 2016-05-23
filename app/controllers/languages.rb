@@ -35,10 +35,6 @@ class Languages
     "You are logged out now"
   end
 
-  def invalid_email
-    "please pass in a valid email address"
-  end
-
   def wrong_email_or_password
     "invalid email/password combination"
   end
