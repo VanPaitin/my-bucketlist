@@ -13,5 +13,18 @@ class JsonWebToken
     def secret
       Rails.application.secrets.secret_key_base
     end
+
+    def issue_token(user)
+      user.update_attribute(:logged_in, true)
+      encode user_id: user.id
+    end
+
+    def payload_token(token)
+      decode token
+    rescue JWT::ExpiredSignature
+      raise ExpirationError
+    rescue JWT::VerificationError, JWT::DecodeError
+      raise NotAuthenticatedError
+    end
   end
 end

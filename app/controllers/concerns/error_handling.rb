@@ -1,4 +1,11 @@
 module ErrorHandling
+  extend ActiveSupport::Concern
+
+  included do
+    rescue_from ExpirationError, with: :expired_token
+    rescue_from NotAuthenticatedError, with: :not_authenticated
+  end
+
   def expired_token
     render json: { error: language.expired_token }, status: 401
   end

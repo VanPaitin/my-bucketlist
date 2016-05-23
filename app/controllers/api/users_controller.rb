@@ -9,7 +9,7 @@ class Api::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      token = issue_token
+      token = JsonWebToken.issue_token(@user)
       render json: { success: language.successful_creation, auth_token: token,
                      user_details: UserSerializer.new(@user) }, status: 201
     else
@@ -39,6 +39,19 @@ class Api::UsersController < ApplicationController
   end
 
   def find_user
-    @user = User.find_by_id(set_id)
+    @user = User.find_by(id: set_id)
+  end
+
+  def set_id
+    if params_integrity?
+      current_user.id
+    else
+      render json: { forbidden: language.forbidden },
+             status: 403
+    end
+  end
+
+  def params_integrity?
+    current_user.id == params[:id].to_i
   end
 end

@@ -4,7 +4,7 @@ class Api::V1::SessionsController < ApplicationController
 
   def create
     if @user && @user.authenticate(params[:password])
-      token = issue_token
+      token = JsonWebToken.issue_token(@user)
       render json: { success: language.login, auth_token: token },
              status: 200
     else
