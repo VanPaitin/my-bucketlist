@@ -3,7 +3,7 @@ require "test_helper"
 class ListBucketlistsTest < ActionDispatch::IntegrationTest
   setup do
     @user = create(:user)
-    104.times { create(:bucketlist, user_id: @user.id) }
+    create_list(:bucketlist, 104, user_id: @user.id)
     token = token(@user)
     @headers = { "Content-Type" => "application/json",
                  "Authorization" => token }
