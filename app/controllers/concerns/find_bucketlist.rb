@@ -13,10 +13,10 @@ module FindBucketlist
     @bucketlist
   end
 
-  def get_bucketlist_id(controller = params[:controller])
-    if controller == "api/v1/items"
+  def get_bucketlist_id
+    if controller_name == "items"
       params[:bucketlist_id]
-    elsif controller == "api/v1/bucketlists"
+    elsif controller_name == "bucketlists"
       params[:id]
     end
   end
