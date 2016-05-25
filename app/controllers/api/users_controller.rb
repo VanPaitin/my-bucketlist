@@ -10,8 +10,12 @@ class Api::UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       token = JsonWebToken.issue_token(@user)
-      render json: { success: language.successful_creation, auth_token: token,
-                     user_details: UserSerializer.new(@user) }, status: 201
+      render json: {
+                     success: language.successful_creation,
+                     auth_token: token,
+                     user_details: UserSerializer.new(@user)
+                    },
+                     status: 201
     else
       render json: { errors: @user.errors }, status: 422
     end
@@ -34,8 +38,7 @@ class Api::UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(:name, :email, :password,
-                  :password_confirmation)
+    params.permit(:name, :email, :password, :password_confirmation)
   end
 
   def find_user
@@ -46,8 +49,7 @@ class Api::UsersController < ApplicationController
     if params_integrity?
       current_user.id
     else
-      render json: { forbidden: language.forbidden },
-             status: 403
+      render json: { forbidden: language.forbidden }, status: 403
     end
   end
 

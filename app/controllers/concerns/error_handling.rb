@@ -11,8 +11,7 @@ module ErrorHandling
   end
 
   def not_authenticated
-    render json: { error: language.not_authenticated },
-           status: 401
+    render json: { error: language.not_authenticated }, status: 401
   end
 
   def invalid_endpoint
