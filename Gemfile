@@ -23,6 +23,7 @@ end
 group :test do
   gem 'database_cleaner'
   gem "minitest-around"
+  gem "minitest-rails"
   gem "minitest-reporters"
   gem "minitest-stub_any_instance"
   gem 'shoulda', '~> 3.5'
