@@ -41,4 +41,12 @@ class Item::CreateItemTest < ActionDispatch::IntegrationTest
     assert_response 404
     assert_equal json(response.body)[:error], "bucketlist could not be found"
   end
+
+  test "cannot create an item when Authorization token is absent" do
+    assert_no_difference "@bucketlist.items.count" do
+      post "/api/v1/bucketlists/#{@bucketlist.id}/items",
+           { name: Faker::Lorem.paragraph, done: false }.to_json
+    end
+    assert_response 401
+  end
 end

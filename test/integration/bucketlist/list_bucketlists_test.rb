@@ -9,7 +9,12 @@ class ListBucketlistsTest < ActionDispatch::IntegrationTest
                  "Authorization" => token }
   end
 
-  test "returns a default number of 20 records" do
+  test "user cannot list bucketlists without a valid token" do
+    get "/api/v1/bucketlists"
+    assert_response 401
+  end
+
+  test "returns 20 records when no parameters are passed" do
     assert_equal 104, @user.bucketlists.count
     get "/api/v1/bucketlists", {}, @headers
     assert_equal 200, response.status

@@ -18,4 +18,9 @@ class Item::DestroyItemTest < ActionDispatch::IntegrationTest
     end
     assert_response 200
   end
+
+  test "cannot delete a bucketlist item without authorization token" do
+    delete "/api/v1/bucketlists/#{@bucketlist.id}/items/#{@item.id}"
+    assert_response 401
+  end
 end

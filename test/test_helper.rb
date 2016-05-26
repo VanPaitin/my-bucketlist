@@ -28,7 +28,12 @@ class ActiveSupport::TestCase
   def token(user)
     JsonWebToken.encode(user_id: user.id)
   end
+
+  def language
+    Languages.new
+  end
 end
+
 class Minitest::Spec
   before :each do
     DatabaseCleaner.start

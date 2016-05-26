@@ -11,13 +11,21 @@ class DeleteBucketlistTest < ActionDispatch::IntegrationTest
                  "Authorization" => token }
   end
 
+  test "cannot delete a bucketlist without a valid token" do
+    assert @bucketlist2.present?
+    assert_no_difference "Bucketlist.count" do
+      delete "/api/v1/bucketlists/#{@bucketlist2.id}"
+    end
+    assert_response 401
+  end
+
   test "can delete a bucketlist" do
     assert_equal 2, Bucketlist.count
     assert_difference "Bucketlist.count", -1 do
       delete "/api/v1/bucketlists/#{@bucketlist.id}", {}, @headers
     end
     assert_equal 200, response.status
-    assert_equal "Bucketlist deleted successfully",
+    assert_equal language.successful_deletion("Bucketlist"),
                  json(response.body)[:success]
   end
 

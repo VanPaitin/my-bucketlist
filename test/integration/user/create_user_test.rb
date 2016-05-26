@@ -11,7 +11,7 @@ class CreateUserTest < ActionDispatch::IntegrationTest
     end
     assert_equal 201, response.status
     assert_equal Mime::JSON, response.content_type
-    assert_equal json(response.body)[:success], "Successfully created"
+    assert_equal json(response.body)[:success], language.successful_creation
   end
   test "user creation failure with invalid credentials" do
     assert_no_difference "User.count" do
@@ -22,7 +22,6 @@ class CreateUserTest < ActionDispatch::IntegrationTest
     end
     assert_equal 422, response.status
     assert_equal Mime::JSON, response.content_type
-    assert_includes json(response.body)[
-      :errors][:name], "is too short (minimum is 6 characters)"
+    assert json(response.body)[:errors][:name].present?
   end
 end

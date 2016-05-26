@@ -11,6 +11,11 @@ class ShowABucketlistTest < ActionDispatch::IntegrationTest
                  "Authorization" => token }
   end
 
+  test "only logged in user can assess the bucketlist resource" do
+    get "/api/v1/bucketlists/#{@bucketlist.id}"
+    assert_response 401
+  end
+
   test "a user can only show his bucketlist" do
     get "/api/v1/bucketlists/#{@bucketlist.id}", {}, @headers
     assert_equal 200, response.status
@@ -22,10 +27,5 @@ class ShowABucketlistTest < ActionDispatch::IntegrationTest
     get "/api/v1/bucketlists/#{@bucketlist2.id}", {}, @headers
     assert @bucketlist2.present?
     assert_equal 404, response.status
-  end
-
-  test "only logged in user can assess the bucketlist resource" do
-    get "/api/v1/bucketlists/#{@bucketlist.id}"
-    assert_response 401
   end
 end
