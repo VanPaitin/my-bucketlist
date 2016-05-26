@@ -12,16 +12,16 @@ class Pagination
     @offset_param = (page - 1) * limit
   end
 
-  def get_page_params(pg)
-    pg ||= 1
-    pg = pg.to_i
-    pg > 0 ? pg : 1
+  def get_page_params(page_param)
+    page_param ||= 1
+    page_param = page_param.to_i
+    page_param > 0 ? page_param : 1
   end
 
-  def get_limit_params(lim)
-    lim = lim.to_i
-    lim = lim >= 1 ? lim : 20
-    lim.between?(1, 100) ? lim : 100
+  def get_limit_params(limit_param)
+    limit_param = limit_param.to_i
+    limit_param = limit_param >= 1 ? limit_param : 20
+    limit_param > 100 ? 100 : limit_param
   end
 
   def paginate

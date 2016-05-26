@@ -11,7 +11,7 @@ class UpdateBucketlistTest < ActionDispatch::IntegrationTest
   end
 
   test "a user can't update bucketlist if he has no authorization" do
-    patch "/api/v1/bucketlists/#{@bucketlist.id}", { name: "my bucketlist" }
+    patch "/api/v1/bucketlists/#{@bucketlist.id}", name: "my bucketlist"
     assert_response 401
   end
 

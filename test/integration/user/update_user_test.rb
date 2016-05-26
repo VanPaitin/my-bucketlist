@@ -23,8 +23,8 @@ class UpdateUserTest < ActionDispatch::IntegrationTest
 
   test "user cannot update his account if he is not logged in" do
     put "/api/users/#{@user.id}",
-        { name: @new_name, email: user.email, password: user.password,
-          password_confirmation: user.password_confirmation }
+        name: @new_name, email: user.email, password: user.password,
+        password_confirmation: user.password_confirmation
     assert_response 401
   end
 
@@ -41,7 +41,7 @@ class UpdateUserTest < ActionDispatch::IntegrationTest
     put "/api/users/#{@user2.id}",
         { name: @user2.name, email: user.email, password: user.password,
           password_confirmation: user.password_confirmation }.to_json,
-          @headers
+        @headers
     assert_equal 403, response.status
   end
 end

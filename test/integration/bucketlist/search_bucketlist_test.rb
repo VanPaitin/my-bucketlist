@@ -8,7 +8,7 @@ class Bucketlist::SearchBucketlistTest < ActionDispatch::IntegrationTest
     token = token(@user)
     @headers = { "Content-Type" => "application/json",
                  "Authorization" => token }
-    @bucketlist_names = @bucketlists.map { |bucketlist| bucketlist.name  }
+    @bucketlist_names = @bucketlists.map(&:name)
   end
 
   test "user cannot list bucketlists without a valid token" do
@@ -25,8 +25,8 @@ class Bucketlist::SearchBucketlistTest < ActionDispatch::IntegrationTest
     result_names = bucketlists[:bucketlist].map { |list| list[:name] }
     refute_includes result_names, @bucketlist.name
     assert @bucketlist_names.all? do |bucketlist|
-             result_names.include? bucketlist
-           end
+      result_names.include? bucketlist
+    end
   end
 
   test "returns empty if nothing matches search params" do

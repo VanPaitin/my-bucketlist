@@ -1,5 +1,4 @@
 require "test_helper"
-require "jwt"
 
 class AuthorizationTokenTest < ActionDispatch::IntegrationTest
   setup do

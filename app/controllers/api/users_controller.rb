@@ -11,11 +11,11 @@ class Api::UsersController < ApplicationController
     if @user.save
       token = JsonWebToken.issue_token(@user)
       render json: {
-                     success: language.successful_creation,
-                     auth_token: token,
-                     user_details: UserSerializer.new(@user)
-                    },
-                     status: 201
+        success: language.successful_creation,
+        auth_token: token,
+        user_details: UserSerializer.new(@user)
+      },
+             status: 201
     else
       render json: { errors: @user.errors }, status: 422
     end
