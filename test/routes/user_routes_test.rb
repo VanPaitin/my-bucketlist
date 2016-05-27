@@ -1,7 +1,7 @@
 require "test_helper"
 
 class UserRoutesTest < ActionDispatch::IntegrationTest
-  test "the routes" do
+  test "should route to the show method of the users controller" do
     assert_generates "/api/users/1",
                      controller: "api/users", action: "show", id: 1
   end

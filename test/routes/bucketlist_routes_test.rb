@@ -1,7 +1,7 @@
 require "test_helper"
 
 class BucketlistRoutesTest < ActionDispatch::IntegrationTest
-  test "the routes" do
+  test "should route to the show method of the bucketlists controller" do
     assert_generates "/api/v1/bucketlists",
                      controller: "api/v1/bucketlists", action: "index"
     assert_generates "/api/v1/bucketlists/1",
