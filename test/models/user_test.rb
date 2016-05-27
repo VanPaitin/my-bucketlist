@@ -9,6 +9,7 @@ class UserTest < ActiveSupport::TestCase
   should validate_length_of(:name).is_at_least(6).is_at_most(50)
   should validate_length_of(:email).is_at_most(255)
   should validate_length_of(:password).is_at_least(6)
+
   test "user is valid" do
     assert @user.valid?
   end
@@ -18,12 +19,14 @@ class UserTest < ActiveSupport::TestCase
                            foo@bar_baz.com foo@bar+baz.com]
     invalid_addresses.each do |invalid_address|
       @user.email = invalid_address
+
       assert_not @user.valid?, "#{invalid_address.inspect} should be invalid"
     end
   end
 
   test "password should be present (nonblank)" do
     @user.password = @user.password_confirmation = " " * 6
+
     assert_not @user.valid?
   end
 end

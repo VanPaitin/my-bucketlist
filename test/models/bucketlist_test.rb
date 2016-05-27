@@ -14,8 +14,9 @@ class BucketlistTest < ActiveSupport::TestCase
   should validate_uniqueness_of(:name).case_insensitive
 
   test "can return the result of a given search term" do
-    assert_equal 4, @user.bucketlists.count
     search_result = Bucketlist.search(@user, "list")
+
+    assert_equal 4, @user.bucketlists.count
     assert_equal 3, search_result.count
     refute_includes search_result.map(&:name), @bucketlist.name
     assert_equal search_result.count, @bucketlists.count
