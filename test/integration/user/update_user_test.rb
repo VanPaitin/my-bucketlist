@@ -16,6 +16,7 @@ class UpdateUserTest < ActionDispatch::IntegrationTest
         { name: @new_name, email: user.email, password: user.password,
           password_confirmation: user.password_confirmation }.to_json,
         @headers
+
     assert_equal @new_name, @user.reload.name
     assert_equal 200, response.status
     assert_equal Mime::JSON, response.content_type
@@ -25,6 +26,7 @@ class UpdateUserTest < ActionDispatch::IntegrationTest
     put "/api/users/#{@user.id}",
         name: @new_name, email: user.email, password: user.password,
         password_confirmation: user.password_confirmation
+
     assert_response 401
   end
 
@@ -33,6 +35,7 @@ class UpdateUserTest < ActionDispatch::IntegrationTest
         { name: "", email: user.email, password: user.password,
           password_confirmation: user.password_confirmation }.to_json,
         @headers
+
     assert_equal 422, response.status
     assert json(response.body)[:errors][:name].present?
   end
@@ -42,6 +45,8 @@ class UpdateUserTest < ActionDispatch::IntegrationTest
         { name: @user2.name, email: user.email, password: user.password,
           password_confirmation: user.password_confirmation }.to_json,
         @headers
+
     assert_equal 403, response.status
+    assert_equal language.forbidden, json(response.body)[:forbidden]
   end
 end

@@ -17,10 +17,11 @@ class Bucketlist::SearchBucketlistTest < ActionDispatch::IntegrationTest
   end
 
   test "returns bucketlists that match search params (case-insensitively)" do
-    assert_equal 4, @user.bucketlists.count
     get "/api/v1/bucketlists?q=liST", {}, @headers
-    assert_response 200
     bucketlists = json(response.body)
+
+    assert_equal 4, @user.bucketlists.count
+    assert_response 200
     assert_equal 3, bucketlists[:bucketlist].count
     result_names = bucketlists[:bucketlist].map { |list| list[:name] }
     refute_includes result_names, @bucketlist.name
@@ -31,8 +32,9 @@ class Bucketlist::SearchBucketlistTest < ActionDispatch::IntegrationTest
 
   test "returns empty if nothing matches search params" do
     get "/api/v1/bucketlists?q=andela", {}, @headers
-    assert_response 404
     bucketlists = json(response.body)
+
+    assert_response 404
     assert_equal language.not_found("bucketlists"), bucketlists[:message]
   end
 end

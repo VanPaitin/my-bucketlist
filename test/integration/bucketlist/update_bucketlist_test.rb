@@ -12,6 +12,7 @@ class UpdateBucketlistTest < ActionDispatch::IntegrationTest
 
   test "a user can't update bucketlist if he has no authorization" do
     patch "/api/v1/bucketlists/#{@bucketlist.id}", name: "my bucketlist"
+
     assert_response 401
   end
 
@@ -19,6 +20,7 @@ class UpdateBucketlistTest < ActionDispatch::IntegrationTest
     patch "/api/v1/bucketlists/#{@bucketlist.id}",
           { name: "my bucketlist" }.to_json,
           @headers
+
     assert_equal 200, response.status
     assert_equal "my bucketlist", @bucketlist.reload.name
   end
@@ -26,6 +28,7 @@ class UpdateBucketlistTest < ActionDispatch::IntegrationTest
   test "can't update with invalid name (shorter than 2 characters)" do
     patch "/api/v1/bucketlists/#{@bucketlist.id}",
           { name: "c" }.to_json, @headers
+
     refute_equal "c", @bucketlist.reload.name
     assert_equal @bucketlist.name, @bucketlist.reload.name
     assert_equal 422, response.status

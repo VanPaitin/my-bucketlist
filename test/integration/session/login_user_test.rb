@@ -6,11 +6,15 @@ class LoginUserTest < ActionDispatch::IntegrationTest
     @fake_password = Faker::Lorem.characters(10)
   end
 
+  test "user is not logged_in" do
+    refute @user.logged_in
+  end
+
   test "can log in a user successfully with right credentials" do
-    assert_equal false, @user.logged_in
     post "/api/v1/auth/login",
          { email: @user.email, password: @user.password }.to_json,
          "Content-Type" => "application/json"
+
     assert_equal 200, response.status
     assert_equal @user.reload.logged_in, true
     assert_equal Mime::JSON, response.content_type
@@ -21,6 +25,7 @@ class LoginUserTest < ActionDispatch::IntegrationTest
     post "/api/v1/auth/login",
          { email: @user.email, password: @fake_password }.to_json,
          "Content-Type" => "application/json"
+
     assert_response 422
     refute @user.reload.logged_in
     assert json(response.body)[:error].present?

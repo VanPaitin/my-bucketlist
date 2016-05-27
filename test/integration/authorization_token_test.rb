@@ -10,8 +10,9 @@ class AuthorizationTokenTest < ActionDispatch::IntegrationTest
     post "/api/v1/auth/login", email: @user.email, password: @user.password
     @token = json(response.body)[:auth_token]
     get "/api/v1/bucketlists", {}, "Authorization" => @token
-    assert_response 200
     bucketlist_count = json(response.body)[:bucketlist].count
+
+    assert_response 200
     assert_equal @user.bucketlists.count, bucketlist_count
   end
 
@@ -19,6 +20,7 @@ class AuthorizationTokenTest < ActionDispatch::IntegrationTest
     token = JsonWebToken.encode({ user_id: @user.id }, 1.second.from_now.to_i)
     sleep 2
     get "/api/v1/bucketlists", {}, "Authorization" => token
+
     assert_response 401
     assert_equal language.expired_token, json(response.body)[:error]
   end
@@ -26,6 +28,7 @@ class AuthorizationTokenTest < ActionDispatch::IntegrationTest
   test "user cannot use a bad token" do
     token = Faker::Lorem.characters(10)
     get "/api/v1/bucketlists", {}, "Authorization" => token
+
     assert_response 401
     assert_equal language.not_authenticated, json(response.body)[:error]
   end

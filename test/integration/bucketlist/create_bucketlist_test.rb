@@ -11,11 +11,14 @@ class CreateBucketlistTest < ActionDispatch::IntegrationTest
 
   test "user cannot create a bucketlist without a valid token" do
     post "/api/v1/bucketlists", { name: @bucketlist.name }.to_json
+
     assert_response 401
+    assert_equal language.not_authenticated, json(response.body)[:error]
   end
 
   test "success when name is of normal length (between 2 to 40 characters)" do
     post "/api/v1/bucketlists", { name: @bucketlist.name }.to_json, @headers
+
     assert_equal 201, response.status
     assert_equal Mime::JSON, response.content_type
     assert_equal json(response.body)[:name], @bucketlist.name

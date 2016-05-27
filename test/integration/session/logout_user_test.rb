@@ -8,9 +8,13 @@ class LogoutUserTest < ActionDispatch::IntegrationTest
                  "Authorization" => token }
   end
 
-  test "a logged in user can logout successfully" do
+  test "user is logged_in" do
     assert @user.logged_in
+  end
+
+  test "a logged in user can logout successfully" do
     get "/api/v1/auth/logout", {}, @headers
+
     refute @user.reload.logged_in
     assert_response 200
     assert json(response.body)[:success].present?
@@ -19,6 +23,7 @@ class LogoutUserTest < ActionDispatch::IntegrationTest
 
   test "cannot logout if you are not logged in" do
     get "/api/v1/auth/logout"
+
     assert_response 401
   end
 end
