@@ -15,7 +15,7 @@ class UpdateBucketlistTest < ActionDispatch::IntegrationTest
     assert_response 401
   end
 
-  test "can update a bucketlist" do
+  test "should be able to update a bucketlist with valid attributes" do
     patch "/api/v1/bucketlists/#{@bucketlist.id}",
           { name: "my bucketlist" }.to_json,
           @headers
@@ -23,7 +23,7 @@ class UpdateBucketlistTest < ActionDispatch::IntegrationTest
     assert_equal "my bucketlist", @bucketlist.reload.name
   end
 
-  test "unsuccessful update with invalid name (shorter than 2 characters)" do
+  test "can't update with invalid name (shorter than 2 characters)" do
     patch "/api/v1/bucketlists/#{@bucketlist.id}",
           { name: "c" }.to_json, @headers
     refute_equal "c", @bucketlist.reload.name
