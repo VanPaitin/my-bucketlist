@@ -13,6 +13,7 @@ class Bucketlist::SearchBucketlistTest < ActionDispatch::IntegrationTest
 
   test "user cannot list bucketlists without a valid token" do
     get "/api/v1/bucketlists?q=list"
+
     assert_response 401
   end
 

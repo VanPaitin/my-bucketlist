@@ -23,8 +23,10 @@ class BucketlistRoutesTest < ActionDispatch::IntegrationTest
                    controller: "api/v1/bucketlists", action: "destroy", id: "3")
   end
 
-  test "wrong addresses should route to a controller method" do
+  test "wrong endpoints can be handled and an error message is displayed" do
     get "/api/v1/wrong_address"
+
     assert_response 400
+    assert_equal language.invalid_endpoint, json(response.body)[:error]
   end
 end
