@@ -18,7 +18,7 @@ class LoginUserTest < ActionDispatch::IntegrationTest
     assert_equal 200, response.status
     assert_equal @user.reload.logged_in, true
     assert_equal Mime::JSON, response.content_type
-    assert_includes json(response.body)[:success], "Successfully logged in"
+    assert_includes json(response.body)[:success], language.login
   end
 
   test "user cannot login with wrong password/wrong email" do
@@ -29,7 +29,6 @@ class LoginUserTest < ActionDispatch::IntegrationTest
     assert_response 422
     refute @user.reload.logged_in
     assert json(response.body)[:error].present?
-    assert_equal json(response.body)[:error],
-                 "invalid email/password combination"
+    assert_equal json(response.body)[:error], language.wrong_email_or_password
   end
 end
