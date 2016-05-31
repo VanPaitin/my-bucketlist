@@ -13,6 +13,7 @@ class ListBucketlistsTest < ActionDispatch::IntegrationTest
     get "/api/v1/bucketlists"
 
     assert_response 401
+    assert_equal language.not_authenticated, json(response.body)[:error]
   end
 
   test "returns 20 records when no parameters are passed" do

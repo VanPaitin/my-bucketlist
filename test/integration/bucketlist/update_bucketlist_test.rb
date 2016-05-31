@@ -14,6 +14,7 @@ class UpdateBucketlistTest < ActionDispatch::IntegrationTest
     patch "/api/v1/bucketlists/#{@bucketlist.id}", name: "my bucketlist"
 
     assert_response 401
+    assert_equal language.not_authenticated, json(response.body)[:error]
   end
 
   test "should be able to update a bucketlist with valid attributes" do

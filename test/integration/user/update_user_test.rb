@@ -28,6 +28,7 @@ class UpdateUserTest < ActionDispatch::IntegrationTest
         password_confirmation: user.password_confirmation
 
     assert_response 401
+    assert_equal language.not_authenticated, json(response.body)[:error]
   end
 
   test "cannot update user with invalid credentials" do

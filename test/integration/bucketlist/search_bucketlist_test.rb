@@ -15,6 +15,7 @@ class Bucketlist::SearchBucketlistTest < ActionDispatch::IntegrationTest
     get "/api/v1/bucketlists?q=list"
 
     assert_response 401
+    assert_equal language.not_authenticated, json(response.body)[:error]
   end
 
   test "returns bucketlists that match search params (case-insensitively)" do

@@ -17,6 +17,7 @@ class DeleteBucketlistTest < ActionDispatch::IntegrationTest
       delete "/api/v1/bucketlists/#{@bucketlist2.id}"
     end
     assert_response 401
+    assert_equal language.not_authenticated, json(response.body)[:error]
   end
 
   test "can delete a bucketlist" do

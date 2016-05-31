@@ -13,6 +13,7 @@ class User::ShowUserTest < ActionDispatch::IntegrationTest
     get "/api/users/#{@user.id}"
 
     assert_response 401
+    assert_equal language.not_authenticated, json(response.body)[:error]
   end
 
   test "user can see his profile page if he has a token" do

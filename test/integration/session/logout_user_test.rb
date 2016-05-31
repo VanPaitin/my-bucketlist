@@ -25,5 +25,6 @@ class LogoutUserTest < ActionDispatch::IntegrationTest
     get "/api/v1/auth/logout"
 
     assert_response 401
+    assert_equal language.not_authenticated, json(response.body)[:error]
   end
 end

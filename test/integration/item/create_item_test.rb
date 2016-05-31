@@ -48,5 +48,6 @@ class Item::CreateItemTest < ActionDispatch::IntegrationTest
            { name: Faker::Lorem.paragraph, done: false }.to_json
     end
     assert_response 401
+    assert_equal language.not_authenticated, json(response.body)[:error]
   end
 end

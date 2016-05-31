@@ -23,5 +23,6 @@ class Item::DestroyItemTest < ActionDispatch::IntegrationTest
     delete "/api/v1/bucketlists/#{@bucketlist.id}/items/#{@item.id}"
 
     assert_response 401
+    assert_equal language.not_authenticated, json(response.body)[:error]
   end
 end

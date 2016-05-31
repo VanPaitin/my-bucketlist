@@ -14,6 +14,7 @@ class User::DeleteUserTest < ActionDispatch::IntegrationTest
       delete "/api/users/#{@user.id}"
     end
     assert_response 401
+    assert_equal language.not_authenticated, json(response.body)[:error]
   end
 
   test "user can delete his account" do
