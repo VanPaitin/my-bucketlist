@@ -31,5 +31,6 @@ class ShowABucketlistTest < ActionDispatch::IntegrationTest
 
     assert @bucketlist2.present?
     assert_equal 404, response.status
+    assert_equal language.not_found("bucketlist"), json(response.body)[:error]
   end
 end

@@ -35,5 +35,6 @@ class DeleteBucketlistTest < ActionDispatch::IntegrationTest
       delete "/api/v1/bucketlists/#{@bucketlist2.id}", {}, @headers
     end
     assert_response 404
+    assert_equal language.not_found("bucketlist"), json(response.body)[:error]
   end
 end

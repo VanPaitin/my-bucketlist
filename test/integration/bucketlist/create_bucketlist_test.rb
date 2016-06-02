@@ -38,5 +38,6 @@ class CreateBucketlistTest < ActionDispatch::IntegrationTest
       post "/api/v1/bucketlists", {}, @headers
     end
     assert_response 422
+    assert json(response.body)[:errors].present?
   end
 end

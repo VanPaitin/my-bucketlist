@@ -21,11 +21,11 @@ class Bucketlist::SearchBucketlistTest < ActionDispatch::IntegrationTest
   test "returns bucketlists that match search params (case-insensitively)" do
     get "/api/v1/bucketlists?q=liST", {}, @headers
     bucketlists = json(response.body)
+    result_names = bucketlists[:bucketlist].map { |list| list[:name] }
 
     assert_equal 4, @user.bucketlists.count
     assert_response 200
     assert_equal 3, bucketlists[:bucketlist].count
-    result_names = bucketlists[:bucketlist].map { |list| list[:name] }
     refute_includes result_names, @bucketlist.name
     assert @bucketlist_names.all? do |bucketlist|
       result_names.include? bucketlist

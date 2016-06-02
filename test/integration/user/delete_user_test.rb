@@ -30,5 +30,6 @@ class User::DeleteUserTest < ActionDispatch::IntegrationTest
       delete "/api/users/#{@user2.id}", {}, @headers
     end
     assert_response 403
+    assert_equal language.forbidden, json(response.body)[:forbidden]
   end
 end

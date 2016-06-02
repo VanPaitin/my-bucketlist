@@ -29,5 +29,6 @@ class User::ShowUserTest < ActionDispatch::IntegrationTest
     get "/api/users/#{@user2.id}", {}, @headers
 
     assert_equal 403, response.status
+    assert_equal language.forbidden, json(response.body)[:forbidden]
   end
 end
