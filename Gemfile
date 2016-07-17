@@ -7,6 +7,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem "jwt"
 gem 'spring', :group => :development
 gem "codeclimate-test-reporter", group: :test, require: nil
+gem 'rack-cors', :require => 'rack/cors'
 group :production do
   gem "pg"
   gem 'rails_12factor'
