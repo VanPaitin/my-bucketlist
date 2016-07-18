@@ -6,6 +6,12 @@ class ApplicationController < ActionController::API
   include ActionController::Serialization
   include ErrorHandling
 
+  private
+
+  def serialization_scope
+    false
+  end
+
   def cors_set_access_control_headers
     headers['Access-Control-Allow-Origin'] = '*'
     headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE, OPTIONS'
@@ -20,12 +26,6 @@ class ApplicationController < ActionController::API
       headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, X-Prototype-Version, Token'
       headers['Access-Control-Max-Age'] = '1728000'
     end
-  end
-
-  private
-
-  def serialization_scope
-    false
   end
 
   def language
