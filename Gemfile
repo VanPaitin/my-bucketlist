@@ -6,7 +6,6 @@ gem 'active_model_serializers'
 gem 'bcrypt', '~> 3.1.7'
 gem "jwt"
 gem 'spring', :group => :development
-gem "codeclimate-test-reporter", group: :test, require: nil
 gem 'rack-cors', :require => 'rack/cors'
 group :production do
   gem "pg"
@@ -29,4 +28,5 @@ group :test do
   gem "minitest-stub_any_instance"
   gem 'shoulda', '~> 3.5'
   gem 'shoulda-matchers', '~> 2.0'
+  gem 'simplecov'
 end

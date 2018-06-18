@@ -1,7 +1,11 @@
 dependencies:
   post:
     - gem install mime-types-data -v '3.2016.0221'
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+    - chmod +x ./cc-test-reporter
 
-machine:
-  ruby:
-    version: 2.3.0
+test:
+  pre:
+    - ./cc-test-reporter before-build
+  override:
+    - bundle exec rake test; ./cc-test-reporter after-build --exit-code $?
