@@ -1,3 +1,7 @@
+machine:
+  environment:
+    CC_TEST_REPORTER_ID: 214a2e3afda53cc97fac68ae1e0ac33449e5c5f17effd01028ae99fcb1b91bef
+
 dependencies:
   post:
     - gem install mime-types-data -v '3.2016.0221'
